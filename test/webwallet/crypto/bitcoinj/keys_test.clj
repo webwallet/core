@@ -31,4 +31,7 @@
   (testing "Generate a signature starting from a private key string"
     (let [keypair-from-private (btcj-keys/keypair-from-private-hex private-key-hex)
           generated-signature (btcj-keys/hash-twice-and-sign message-to-sign keypair-from-private)]
-      (is (= generated-signature message-signature)))))
+      (is (= generated-signature message-signature))))
+  (testing "Verify a signature given its DER string and a public key string"
+    (let [verification-result (btcj-keys/verify-signature-on-message message-to-sign message-signature public-key-hex)]
+      (is (true? verification-result)))))

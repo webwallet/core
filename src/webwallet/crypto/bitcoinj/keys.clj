@@ -47,3 +47,8 @@
        (.sign keypair)
        (.encodeToDER)
        (bytes->hex)))
+
+(defn verify-signature-on-message [message signature-der-hex public-hex]
+  (ECKey/verify (.getBytes (Sha256Hash/twiceOf (.getBytes message)))
+                (hex->bytes signature-der-hex)
+                (hex->bytes public-hex)))
